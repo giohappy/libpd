@@ -35,7 +35,7 @@ target_link_libraries(_pylibpd PRIVATE libpd_static Python::Python)
 # Configure MSVC-specific warnings/definitions for the wrapper target
 if(MSVC)
     target_compile_options(_pylibpd PRIVATE /wd4091 /wd4996)
-    target_compile_definitions(_pylibpd PRIVATE _CRT_SECURE_NO_WARNINGS)
+    target_compile_definitions(_pylibpd PRIVATE _CRT_SECURE_NO_WARNINGS EXTERN=extern)
 endif()
 
 # Set output properties so it is built as a .pyd file with no "lib" prefix
