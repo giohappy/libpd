@@ -29,8 +29,13 @@ swig_add_library(_pylibpd
     SOURCES pylibpd.i
 )
 
-# Link the SWIG module to the static libpd library and Python
-target_link_libraries(_pylibpd PRIVATE libpd_static Python::Python)
+# Link the SWIG module to the static libpd library, Python, and Windows/Pthreads dependencies
+target_link_libraries(_pylibpd PRIVATE
+    libpd_static
+    Python::Python
+    $<$<BOOL:${WIN32}>:Ws2_32>
+    $<$<BOOL:${MSVC}>:${PTHREADS_LIB}>
+)
 
 # Configure MSVC-specific warnings/definitions for the wrapper target
 if(MSVC)
