@@ -21,14 +21,9 @@ Before running the build, ensure the following software is installed on your sys
    - *Note: If using Python 3.14, make sure to download SWIG 4.4.0 or newer.*
 4. **Pthreads for Windows**:
    - `libpd` requires a POSIX threads (`pthreads`) implementation.
-   - **Recommendation (via vcpkg)**:
-     ```powershell
-     vcpkg install pthreads:x64-windows
-     ```
-     Once installed, your `PTHREADS_INCLUDE_DIR` is typically `C:/vcpkg/packages/pthreads_x64-windows/include` and `PTHREADS_LIB` is `C:/vcpkg/packages/pthreads_x64-windows/lib/pthreadVC3.lib`.
-   - **Alternative (Manual Download)**:
-     - Download precompiled binaries of `pthreads-win32` or `pthreads4w` from their official distribution mirrors.
-     - Note the folders containing `pthread.h` and `pthreadVC3.lib`.
+   - You have `pthreads` installed via vcpkg at:
+     - `PTHREADS_INCLUDE_DIR`: `D:/me/dev/vcpkg/packages/pthreads_x64-windows/include`
+     - `PTHREADS_LIB`: `D:/me/dev/vcpkg/packages/pthreads_x64-windows/lib/pthreadVC3.lib`
 
 ---
 
@@ -45,14 +40,13 @@ cd /d D:\me\MUSICA\dev\libpd\python
 ```
 
 ### Step 3: Run CMake to Generate Build Files
-Create a build directory, run CMake, and supply your local `pthreads` paths. 
-
-Replace the placeholder paths in the command below with your actual `pthreads` header directory and `.lib` library path:
+Clean any old cached configuration, create the build directory, and configure CMake with your specific paths for `pthreads` and your custom Python 3.12 path:
 
 ```cmd
+rmdir /s /q build
 mkdir build
 cd build
-cmake .. -G "Visual Studio 17 2022" -A x64 -DPTHREADS_INCLUDE_DIR="C:/path/to/pthreads/include" -DPTHREADS_LIB="C:/path/to/pthreads/lib/pthreadVC3.lib"
+cmake .. -G "Visual Studio 17 2022" -A x64 -DPTHREADS_INCLUDE_DIR="D:/me/dev/vcpkg/packages/pthreads_x64-windows/include" -DPTHREADS_LIB="D:/me/dev/vcpkg/packages/pthreads_x64-windows/lib/pthreadVC3.lib" -DPython_ROOT_DIR="C:/Users/giohappy/AppData/Local/Python/pythoncore-3.12-64"
 ```
 
 > [!NOTE]
